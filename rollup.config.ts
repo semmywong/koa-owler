@@ -7,10 +7,8 @@ import json from 'rollup-plugin-json';
 
 const pkg = require('./package.json');
 
-const libraryName = 'koa-owler';
-
 export default {
-    input: `src/index.ts`,
+    input: `dist/lib/index.js`,
     output: [{ file: pkg.main, format: 'cjs', sourcemap: true }],
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
     external: [],
