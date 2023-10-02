@@ -1,17 +1,21 @@
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import sourceMaps from 'rollup-plugin-sourcemaps';
-import camelCase from 'lodash.camelcase';
-import typescript from 'rollup-plugin-typescript2';
-import json from 'rollup-plugin-json';
+/*
+ * @Author: Semmy Wong
+ * @Date: 2023-09-21 09:03:16
+ * @LastEditors: Semmy Wong
+ * @LastEditTime: 2023-09-21 19:43:08
+ * @Description: 描述
+ */
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import resolve from '@rollup/plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
+import type { RollupOptions } from 'rollup';
 
-const pkg = require('./package.json');
-
-export default {
-    input: `dist/lib/index.js`,
-    output: [{ file: pkg.main, format: 'cjs', sourcemap: true }],
+const config: RollupOptions = {
+    input: `src/index.ts`,
+    output: [{ file: 'dist/koa-owler.js', format: 'cjs', sourcemap: false }],
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-    external: [],
+    external: ['owler'],
     watch: {
         include: 'src/**',
     },
@@ -19,15 +23,14 @@ export default {
         // Allow json resolution
         json(),
         // Compile TypeScript files
-        typescript({ useTsconfigDeclarationDir: true }),
+        typescript({ sourceMap: false }),
         // Allow bundling cjs modules (unlike webpack, rollup doesn't understand cjs)
         commonjs(),
         // Allow node_modules resolution, so you can use 'external' to control
         // which external modules to include in the bundle
         // https://github.com/rollup/rollup-plugin-node-resolve#usage
         resolve(),
-
-        // Resolve source maps to the original source
-        sourceMaps(),
     ],
 };
+
+export default config;
