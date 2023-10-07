@@ -2,10 +2,11 @@
  * @Author: Semmy Wong
  * @Date: 2023-09-21 09:03:16
  * @LastEditors: Semmy Wong
- * @LastEditTime: 2023-09-21 10:37:27
+ * @LastEditTime: 2023-10-02 14:32:25
  * @Description: 描述
  */
 import fs from 'fs';
+import { Context } from 'koa';
 import owler from 'owler';
 import path from 'path';
 
@@ -15,15 +16,19 @@ export default class KoaOwler {
         autoRender: true,
         extension: 'html',
     };
-    private koaContext: any;
+    private koaContext: Context;
     public view(rootPath: string, options = {}) {
         this.rootPath = rootPath;
         this.options = Object.assign({}, this.options, options);
-        return async (ctx: any, next: any) => {
+        return async (ctx: Context, next: () => Promise<any>) => {
             this.koaContext = ctx;
-            if (!ctx) return this.render.bind(this);
+            if (!ctx) {
+                return this.render.bind(this);
+            }
 
-            if (ctx.render) return next();
+            if (ctx.render) {
+                return next();
+            }
 
             ctx.response.render = ctx.render = this.render.bind(this);
 

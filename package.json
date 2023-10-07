@@ -1,6 +1,6 @@
 {
     "name": "koa-owler",
-    "version": "0.0.45",
+    "version": "0.1.0",
     "author": "Semmy Wong <semmywong@126.com>",
     "description": "",
     "keywords": [],
@@ -80,6 +80,7 @@
     "devDependencies": {
         "@commitlint/cli": "^17.7.1",
         "@commitlint/config-conventional": "^17.7.0",
+        "@types/koa": "^2.13.9",
         "@rollup/plugin-commonjs": "^25.0.4",
         "@rollup/plugin-json": "^6.0.0",
         "@rollup/plugin-node-resolve": "^15.2.1",
@@ -113,7 +114,7 @@
         "typescript": "^5.2.2"
     },
     "dependencies": {
-        "owler": "^0.1.0"
+        "owler": "^0.1.1"
     },
     "repository": {
         "type": "git",
